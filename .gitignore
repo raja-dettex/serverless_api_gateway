@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+
+# Logs
+logs/
+*.log
+debug.log
+
+# Docker
+*.env
+docker-compose.override.yml
+
+# Alembic migrations
+app/migrations/
+
+# Pytest cache
+.pytest_cache/
+
+# VS Code settings
+.vscode/
+*.code-workspace
+
+# JetBrains (PyCharm, IntelliJ)
+.idea/
+

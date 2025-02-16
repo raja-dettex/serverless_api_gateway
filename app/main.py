@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends
 from ariadne import gql, QueryType, make_executable_schema, MutationType
 from ariadne.asgi import GraphQL
 from sqlalchemy.orm import Session
+from mangum import Mangum
 from app.db.Session import get_db, init_tables
 from app.services.user_service import get_all , add , update, delete
 from .redis.service import get_users, set_users, get_users, update_cache
@@ -49,7 +50,6 @@ async def resolve_users(_, info):
         return cached_users
     users = get_all(db)
     await set_users(users)
-    #print("users " + users)
     return users
 
 
@@ -65,7 +65,7 @@ async def resolve_create_user(_,info, name: str, email: str):
 async def resolve_update_user(_,info, id: int, name: str):
     db = next(get_db())
     user = update(db, id, name)
-    await update_cache(id=id,user=user)
+    #await update_cache(id=id,user=user)
     return user
 
 
@@ -77,3 +77,4 @@ async def resolve_delete_user(_,info, id: int):
 
 schema = make_executable_schema(type_defs, query, mutation)
 app.add_route("/graphql", GraphQL(schema=schema, debug=True))
+handler = Mangum(app)

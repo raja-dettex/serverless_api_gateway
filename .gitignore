@@ -29,3 +29,5 @@ app/migrations/
 # JetBrains (PyCharm, IntelliJ)
 .idea/
 
+.aws-sam
+
